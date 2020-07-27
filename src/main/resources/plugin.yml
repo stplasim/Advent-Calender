@@ -1,0 +1,12 @@
+name: Advent
+version: ${project.version}
+main: net.bitnt.advent.Advent
+api-version: 1.15
+prefix: Advent Calender
+authors: [plasim]
+description: An advent calendar system for Spigot and Bukkit server
+
+commands:
+  advent:
+    description: Open advent calender
+    usage: advent

@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
-public class PlayerDoorUse {
+public class PlayerDayLoader {
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final Advent plugin;
     private final Player player;
@@ -26,7 +26,7 @@ public class PlayerDoorUse {
      * @param player - Player instance
      * @param day - Selected day
      */
-    public PlayerDoorUse(Advent plugin, Player player, int day) {
+    public PlayerDayLoader(Advent plugin, Player player, int day) {
         this.plugin = plugin;
         this.player = player;
         this.day = day;

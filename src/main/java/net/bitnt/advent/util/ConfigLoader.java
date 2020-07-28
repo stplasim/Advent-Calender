@@ -7,7 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 
-public class ConfigCalender {
+public class ConfigLoader {
     private Advent plugin;
     private String root;
 
@@ -17,7 +17,7 @@ public class ConfigCalender {
      * @param plugin - Plugin instance
      * @param root - Root path
      */
-    public ConfigCalender(Advent plugin, String root) {
+    public ConfigLoader(Advent plugin, String root) {
         this.plugin = plugin;
         this.root = root;
     }

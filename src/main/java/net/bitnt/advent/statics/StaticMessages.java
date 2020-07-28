@@ -22,4 +22,11 @@ public class StaticMessages {
     // Success messages
     public static final String CALENDAR_CREATED =  PREFIX + "§aCalendar created successful";
     public static final String GIFT_GIVEN = PREFIX + "§a§lYay! Happy advent!!";
+
+    // Help command text
+    public static final String HELP_TITLE = "§6----------|§b§l Advent Calendar §r§6|----------";
+    public static final String HELP_HELP_CMD = "§7/advent help §6- Display the help page.";
+    public static final String HELP_ADMIN_CMD = "§7/advent admin §6- Get a overview over all day in the calendar.";
+    public static final String HELP_SET_CMD = "§7/advent set §6- Create the calendar with the items and command by looking at a chest that contains these items.";
+    public static final String HELP_LOAD_CMD = "§7/advent load §6- Get the chest with the items back. So you can change the calendar anytime. The chest appears at your current position.";
 }

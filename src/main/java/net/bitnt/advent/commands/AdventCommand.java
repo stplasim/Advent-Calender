@@ -46,6 +46,11 @@ public class AdventCommand implements CommandExecutor {
                 case "load":
                     handleAdminChestLoad.handleCommand(plugin, player);
                     break;
+
+                // Display help page to user
+                case "help":
+                    handleHelpCommand.handleCommand(player);
+                    break;
             }
         }
         else {

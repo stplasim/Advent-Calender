@@ -10,21 +10,29 @@ import java.util.List;
 
 public class AdventTabCompletion implements TabCompleter {
     @Override
+    // Executes when user types
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+
+        // Check if the command has the correct signature
         if(command.getName().equalsIgnoreCase("advent") && args.length > 0) {
+
+            // Check if the command comes from the player
             if(sender instanceof Player) {
+                // Cast player form sender
                 Player player = (Player) sender;
 
+                // Create list of commands
                 List<String> commandList = new ArrayList<>();
 
-                commandList.add("help");
-
+                // Check if player is admin and add commands
                 if(player.hasPermission("advent.admin")) {
+                    commandList.add("help");
                     commandList.add("admin");
                     commandList.add("set");
                     commandList.add("load");
                 }
 
+                // Return list
                 return commandList;
             }
         }

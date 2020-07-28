@@ -2,6 +2,7 @@ package net.bitnt.advent.handler;
 
 import net.bitnt.advent.Advent;
 import net.bitnt.advent.calender.Calender;
+import net.bitnt.advent.statics.StaticMessages;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,7 +28,7 @@ public class AdminOverviewHandler implements Listener {
 
         // Check if player has permission
         if(!player.hasPermission("advent.admin")) {
-            player.sendMessage("§cYou dont have the permission to open the calender admin menu");
+            player.sendMessage(StaticMessages.NO_COMMAND_PERMISSIONS);
             return;
         }
 

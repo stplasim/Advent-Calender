@@ -3,7 +3,9 @@ package net.bitnt.advent.commands;
 import net.bitnt.advent.Advent;
 import net.bitnt.advent.calender.Day;
 import net.bitnt.advent.calender.DayStatus;
-import net.bitnt.advent.util.ConfigCalender;
+import net.bitnt.advent.statics.CommandFilter;
+import net.bitnt.advent.util.ConfigLoader;
+import net.bitnt.advent.statics.StaticMessages;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockState;
@@ -22,7 +24,7 @@ public class handleAdminChestSet {
     public static void handleCommand(Advent plugin, Player player) {
         // Check if player has permission to access this command
         if(!player.hasPermission("advent.admin")) {
-            player.sendMessage("§cYou dont have the permission to open the calender admin menu");
+            player.sendMessage(StaticMessages.NO_COMMAND_PERMISSIONS);
             return;
         }
 
@@ -34,8 +36,7 @@ public class handleAdminChestSet {
 
             // Check if block is a chest
             if(blockState.getType() != Material.CHEST) {
-                player.sendMessage("§c§lThis is not a chest!");
-                player.sendMessage("§cUse a chest to create or update calender");
+                player.sendMessage(StaticMessages.NOT_A_CHEST_ERROR);
                 return;
             }
 
@@ -59,7 +60,15 @@ public class handleAdminChestSet {
                 if(item.getType() == Material.WRITABLE_BOOK || item.getType() == Material.WRITTEN_BOOK) {
                     // Get book content and save it to config
                     BookMeta bookMeta = (BookMeta) item.getItemMeta();
-                    d.setGiftCommand(bookMeta.getPage(1));
+                    String command = bookMeta.getPage(1);
+
+                    // Check if command is allowed
+                    if(CommandFilter.filter(command, player.getDisplayName())) {
+                        player.sendMessage(StaticMessages.USED_BLOCKED_COMMAND);
+                        return;
+                    }
+
+                    d.setGiftCommand(command);
                 }
                 else {
                     // Get item and save it to config
@@ -70,10 +79,10 @@ public class handleAdminChestSet {
                 d.setStatus(DayStatus.READY);
 
                 // Save to config
-                new ConfigCalender(plugin, "Advent.Calender").updateSingleDay(d);
+                new ConfigLoader(plugin, "Advent.Calender").updateSingleDay(d);
             }
 
-            player.sendMessage("§aCalender created successful");
+            player.sendMessage(StaticMessages.CALENDAR_CREATED);
         }
         catch (Exception e) {
             e.printStackTrace();

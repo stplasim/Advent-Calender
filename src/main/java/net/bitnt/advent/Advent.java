@@ -2,9 +2,10 @@ package net.bitnt.advent;
 
 import net.bitnt.advent.calender.Day;
 import net.bitnt.advent.commands.AdventCommand;
+import net.bitnt.advent.commands.TabCompletion;
 import net.bitnt.advent.handler.AdminOverviewHandler;
 import net.bitnt.advent.handler.PlayerHandler;
-import net.bitnt.advent.util.ConfigCalender;
+import net.bitnt.advent.util.ConfigLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,6 +29,7 @@ public final class Advent extends JavaPlugin {
      */
     private void initHandlers() {
         getCommand("advent").setExecutor(new AdventCommand(this));
+        getCommand("advent").setTabCompleter(new TabCompletion());
 
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new PlayerHandler(this), this);
@@ -42,7 +44,7 @@ public final class Advent extends JavaPlugin {
             int currentYear = LocalDate.now().getYear();
 
             for (int i = 0; i < 24; i++) {
-                new ConfigCalender(this, "Advent.Calender")
+                new ConfigLoader(this, "Advent.Calender")
                         .saveDay(new Day((i + 1), (i * 2), currentYear));
             }
 

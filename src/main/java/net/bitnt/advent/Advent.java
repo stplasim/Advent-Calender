@@ -2,7 +2,7 @@ package net.bitnt.advent;
 
 import net.bitnt.advent.calender.Day;
 import net.bitnt.advent.commands.AdventCommand;
-import net.bitnt.advent.commands.TabCompletion;
+import net.bitnt.advent.commands.AdventTabCompletion;
 import net.bitnt.advent.handler.AdminOverviewHandler;
 import net.bitnt.advent.handler.PlayerHandler;
 import net.bitnt.advent.util.ConfigLoader;
@@ -29,7 +29,7 @@ public final class Advent extends JavaPlugin {
      */
     private void initHandlers() {
         getCommand("advent").setExecutor(new AdventCommand(this));
-        getCommand("advent").setTabCompleter(new TabCompletion());
+        getCommand("advent").setTabCompleter(new AdventTabCompletion());
 
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new PlayerHandler(this), this);

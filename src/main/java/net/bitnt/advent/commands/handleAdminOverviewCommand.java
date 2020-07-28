@@ -3,7 +3,8 @@ package net.bitnt.advent.commands;
 import net.bitnt.advent.Advent;
 import net.bitnt.advent.calender.Calender;
 import net.bitnt.advent.calender.Day;
-import net.bitnt.advent.util.ConfigCalender;
+import net.bitnt.advent.util.ConfigLoader;
+import net.bitnt.advent.statics.StaticMessages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -18,7 +19,7 @@ public class handleAdminOverviewCommand {
     public static void handleCommand(Advent plugin, Player player) {
         // Check if player has the permission
         if(!player.hasPermission("advent.admin")) {
-            player.sendMessage("§cYou dont have the permission to open the calender admin menu");
+            player.sendMessage(StaticMessages.NO_COMMAND_PERMISSIONS);
             return;
         }
 
@@ -30,7 +31,7 @@ public class handleAdminOverviewCommand {
 
 
         // Get days form config
-        Day[] days = new ConfigCalender(plugin, "Advent.Calender").loadAllDays();
+        Day[] days = new ConfigLoader(plugin, "Advent.Calender").loadAllDays();
 
         // Create items for day
         for (int i = 0; i < days.length; i++) {

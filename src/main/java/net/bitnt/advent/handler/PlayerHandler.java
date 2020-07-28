@@ -3,8 +3,9 @@ package net.bitnt.advent.handler;
 import net.bitnt.advent.Advent;
 import net.bitnt.advent.calender.Calender;
 import net.bitnt.advent.calender.Day;
-import net.bitnt.advent.util.PlayerDoorUse;
-import net.bitnt.advent.util.ConfigCalender;
+import net.bitnt.advent.util.PlayerDayLoader;
+import net.bitnt.advent.util.ConfigLoader;
+import net.bitnt.advent.statics.StaticMessages;
 import org.bukkit.*;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.EntityType;
@@ -35,7 +36,7 @@ public class PlayerHandler implements Listener {
             try {
                 // Check if day is configured
                 if(event.getCurrentItem().getType() == Material.BARRIER) {
-                    player.sendMessage("§cOops. It looks like this day has not yet been configured.");
+                    player.sendMessage(StaticMessages.DAY_NOT_READY_ERROR);
                     player.closeInventory();
                     return;
                 }
@@ -50,18 +51,18 @@ public class PlayerHandler implements Listener {
                 );
 
                 // Get Player door usage helper class
-                PlayerDoorUse pu = new PlayerDoorUse(plugin, player, dayId);
+                PlayerDayLoader dayLoader = new PlayerDayLoader(plugin, player, dayId);
 
                 // Check if user hasn't already onend this door
                 // TODO: Check if day isn't over
-                if(pu.hasAlreadyOpenedDay()) {
-                    player.sendMessage("§c§lYou already have got your gift for today");
+                if(dayLoader.hasAlreadyOpenedDay()) {
+                    player.sendMessage(StaticMessages.DAY_USED_ERROR);
                     player.closeInventory();
                     return;
                 }
 
                 // Get selected day
-                Day day = new ConfigCalender(plugin, "Advent.Calender").getSingleDay(dayId);
+                Day day = new ConfigLoader(plugin, "Advent.Calender").getSingleDay(dayId);
 
                 // Check if gif item is not null
                 // If item is present give it to user
@@ -83,7 +84,7 @@ public class PlayerHandler implements Listener {
 
                 // Save player in the log file of the day
                 // This prevents the user form opening the door more the once
-                pu.savePlayerAction();
+                dayLoader.savePlayerAction();
 
                 // Close inventory
                 player.closeInventory();
@@ -92,7 +93,7 @@ public class PlayerHandler implements Listener {
                 spawnFirework(player).detonate();
 
                 // Print message to user
-                player.sendMessage("§a§lYay happy advent!!");
+                player.sendMessage(StaticMessages.GIFT_GIVEN);
             }
             catch (Exception e) {
                 e.printStackTrace();

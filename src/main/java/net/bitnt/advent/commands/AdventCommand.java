@@ -1,6 +1,7 @@
 package net.bitnt.advent.commands;
 
 import net.bitnt.advent.Advent;
+import net.bitnt.advent.statics.StaticMessages;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -31,23 +32,25 @@ public class AdventCommand implements CommandExecutor {
         else if(args.length == 1) {
 
             // Display admin overview
-            if(args[0].equals("admin")) {
-                handleAdminOverviewCommand.handleCommand(plugin, player);
-            }
+            switch (args[0]) {
+                case "admin":
+                    handleAdminOverviewCommand.handleCommand(plugin, player);
+                    break;
 
-            // Load items for chest into config
-            else if(args[0].equals("set")) {
-                handleAdminChestSet.handleCommand(plugin, player);
-            }
+                // Load items for chest into config
+                case "set":
+                    handleAdminChestSet.handleCommand(plugin, player);
+                    break;
 
-            // Load items for chest into config
-            else if(args[0].equals("load")) {
-                handleAdminChestLoad.handleCommand(plugin, player);
+                // Load items for chest into config
+                case "load":
+                    handleAdminChestLoad.handleCommand(plugin, player);
+                    break;
             }
         }
         else {
             // Display error if needed
-            player.sendMessage("§cPlease use §7/advent");
+            player.sendMessage(StaticMessages.COMMAND_NOT_FOUND_ERROR);
             return false;
         }
 

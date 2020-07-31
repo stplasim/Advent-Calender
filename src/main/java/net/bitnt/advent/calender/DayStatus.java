@@ -3,7 +3,9 @@ package net.bitnt.advent.calender;
 public enum DayStatus {
     NONE(0),
     EMPTY(1),
-    READY(2);
+    READY(2),
+    OVER(3),
+    UPCOMING(4);
 
     private final int value;
 

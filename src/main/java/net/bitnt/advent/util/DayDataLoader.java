@@ -7,7 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 
-public class ConfigLoader {
+public class DayDataLoader {
     private Advent plugin;
     private String root;
 
@@ -17,9 +17,19 @@ public class ConfigLoader {
      * @param plugin - Plugin instance
      * @param root - Root path
      */
-    public ConfigLoader(Advent plugin, String root) {
+    public DayDataLoader(Advent plugin, String root) {
         this.plugin = plugin;
         this.root = root;
+    }
+
+    public void cleanConfig() {
+        FileConfiguration config = plugin.getConfig();
+        for (int i = 0; i < 24; i++) {
+            Day day = new Day((i + 1), (i * 2));
+
+            config.set(root + ".Day." + day.getDay() + ".Position", day.getPosition());
+            config.set(root + ".Day." + day.getDay() + ".Status", day.getStatus().getValue());
+        }
     }
 
     /**

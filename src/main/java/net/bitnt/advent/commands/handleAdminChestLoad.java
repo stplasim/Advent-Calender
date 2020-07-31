@@ -2,7 +2,8 @@ package net.bitnt.advent.commands;
 
 import net.bitnt.advent.Advent;
 import net.bitnt.advent.calender.Day;
-import net.bitnt.advent.util.ConfigLoader;
+import net.bitnt.advent.calender.DayStatus;
+import net.bitnt.advent.util.DayDataLoader;
 import net.bitnt.advent.util.ItemBuilder;
 import net.bitnt.advent.statics.StaticMessages;
 import org.bukkit.Material;
@@ -30,10 +31,12 @@ public class handleAdminChestLoad {
             Chest chest = (Chest) chestBlock.getState();
 
             // Get days form config
-            Day[] days = new ConfigLoader(plugin, "Advent.Calender").loadAllDays();
+            Day[] days = new DayDataLoader(plugin, "Advent.Calendar").loadAllDays();
 
             // Create items for day
             for(Day day : days) {
+                if(day.getStatus() == DayStatus.NONE) continue;
+
                 // If item is not null, set item
                 if(day.getGiftItem() != null) {
                     chest.getBlockInventory().setItem((day.getDay() - 1), day.getGiftItem());

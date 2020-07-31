@@ -2,7 +2,7 @@ package net.bitnt.advent.calender;
 
 import org.bukkit.inventory.ItemStack;
 
-public abstract class Calender {
+public abstract class Calendar {
     public static final String CALENDER_TITLE = "§6§lAdvent Calender";
     public static final String CALENDER_TITLE_ADMIN = CALENDER_TITLE + " - Admin";
     public static final String CALENDER_TITLE_EDIT = CALENDER_TITLE + " - Edit";
@@ -10,7 +10,6 @@ public abstract class Calender {
     private final int day;
     private DayStatus status = DayStatus.NONE;
     private final int position;
-    private int year;
 
     /**
      * Constructor for day with year
@@ -19,20 +18,7 @@ public abstract class Calender {
      * @param position - Position of the day in the inventory
      * @param year - Year the day is active
      */
-    public Calender(int day, int position, int year) {
-        this.day = day;
-        this.position = position;
-        this.year = year;
-    }
-
-    /**
-     * Constructor for day without year
-     * This constructor is used to change days in the config
-     *
-     * @param day
-     * @param position
-     */
-    public Calender(int day, int position) {
+    public Calendar(int day, int position) {
         this.day = day;
         this.position = position;
     }
@@ -53,15 +39,6 @@ public abstract class Calender {
      */
     public int getPosition() {
         return position;
-    }
-
-    /**
-     * Get the year in with the day is active
-     *
-     * @return int
-     */
-    public int getYear() {
-        return year;
     }
 
     /**

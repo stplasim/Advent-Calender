@@ -2,7 +2,7 @@ name: Advent
 version: ${project.version}
 main: net.bitnt.advent.Advent
 api-version: 1.15
-prefix: Advent Calender
+prefix: Advent Calendar
 authors: [plasim]
 description: An advent calendar system for Spigot and Bukkit server
 

@@ -24,9 +24,14 @@ public class AdventTabCompletion implements TabCompleter {
                 // Create list of commands
                 List<String> commandList = new ArrayList<>();
 
-                // Check if player is admin and add commands
-                if(player.hasPermission("advent.admin")) {
+                // Check if player can use this plugin and add basic commands
+                if(player.hasPermission("advent.use")) {
                     commandList.add("help");
+                    commandList.add("help");
+                }
+
+                // Check if player is admin and add admin commands
+                if(player.hasPermission("advent.admin")) {
                     commandList.add("admin");
                     commandList.add("set");
                     commandList.add("load");

@@ -2,8 +2,8 @@ name: Build Pre-Release
 
 on:
   push:
-    branches:
-      - develop
+    tags:
+      - "snapshot-*"
 
 
 jobs:
@@ -26,8 +26,9 @@ jobs:
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "dev"
+        automatic_release_tag: "latest"
         prerelease: true
         title: "Development Build"
+        draft: true
         files: |
-          target/Advent-1.0-SNAPSHOT.jar
+          target/Advent-1.0.jar

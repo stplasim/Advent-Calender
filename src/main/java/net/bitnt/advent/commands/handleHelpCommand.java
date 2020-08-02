@@ -19,8 +19,12 @@ public class handleHelpCommand {
         // Return help menu
         player.sendMessage(StaticMessages.HELP_TITLE);
         player.sendMessage(StaticMessages.HELP_HELP_CMD);
-        player.sendMessage(StaticMessages.HELP_ADMIN_CMD);
-        player.sendMessage(StaticMessages.HELP_SET_CMD);
-        player.sendMessage(StaticMessages.HELP_LOAD_CMD);
+        player.sendMessage(StaticMessages.HELP_INFO_CMD);
+
+        if(player.hasPermission("advent.admin")) {
+            player.sendMessage(StaticMessages.HELP_ADMIN_CMD);
+            player.sendMessage(StaticMessages.HELP_SET_CMD);
+            player.sendMessage(StaticMessages.HELP_LOAD_CMD);
+        }
     }
 }

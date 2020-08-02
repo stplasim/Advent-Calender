@@ -1,30 +1,20 @@
 package net.bitnt.advent.calender;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
 
-public class Day extends Calender {
+public class Day extends Calendar {
     private ItemStack giftItem = null;
     private String giftCommand = null;
 
     /**
      * Constructor with year
      * For general purpose
-     *
-     * @param day - Active day
-     * @param position - Position in the inventory
-     * @param year - Active year
-     */
-    public Day(int day, int position, int year) {
-        super(day, position, year);
-    }
-
-    /**
-     * Constructor without year
-     * For config stuff
      *
      * @param day - Active day
      * @param position - Position in the inventory
@@ -46,13 +36,18 @@ public class Day extends Calender {
         // Check in with state the day is in
         switch (getStatus()) {
             case EMPTY:
+            case OVER:
                 // Displayed when day has no item or command
                 material = Material.ENDER_CHEST;
                 break;
 
-            case READY:
+            case UPCOMING:
                 // Displayed when day is ready
                 material = Material.CHEST;
+                break;
+
+            case READY:
+                material = Material.DIAMOND;
                 break;
 
             case NONE:
@@ -72,10 +67,10 @@ public class Day extends Calender {
         itemMeta.setLore(Arrays.asList(lore));
 
         // If day is active add glow effect
-        /*if(getStatus() == DayStatus.PENDING) {
+        if(getStatus() == DayStatus.READY) {
             itemMeta.addEnchant(Enchantment.DURABILITY, 1, false);
             itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        }*/
+        }
 
         // Assembly item and return
         day.setItemMeta(itemMeta);
@@ -116,5 +111,27 @@ public class Day extends Calender {
      */
     public void setGiftItem(ItemStack giftItem) {
         this.giftItem = giftItem;
+    }
+
+    /**
+     * Check if the day has a item associated with it
+     * True = yes
+     * False = no
+     *
+     * @return boolean
+     */
+    public boolean hasItem() {
+        return giftItem != null;
+    }
+
+    /**
+     * Check if the day has a command associated with it
+     * True = yes
+     * False = no
+     *
+     * @return boolean
+     */
+    public boolean hasCommand() {
+        return giftCommand != null;
     }
 }

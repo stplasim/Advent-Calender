@@ -1,9 +1,9 @@
 package net.bitnt.advent.commands;
 
 import net.bitnt.advent.Advent;
-import net.bitnt.advent.calender.Calender;
+import net.bitnt.advent.calender.Calendar;
 import net.bitnt.advent.calender.Day;
-import net.bitnt.advent.util.ConfigLoader;
+import net.bitnt.advent.util.DayDataLoader;
 import net.bitnt.advent.statics.StaticMessages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -27,16 +27,34 @@ public class handleAdminOverviewCommand {
         Inventory panel = Bukkit.createInventory(
                 null,
                 9*4,
-                Calender.CALENDER_TITLE_ADMIN);
+                Calendar.CALENDER_TITLE_ADMIN);
 
 
         // Get days form config
-        Day[] days = new ConfigLoader(plugin, "Advent.Calender").loadAllDays();
+        Day[] days = new DayDataLoader(plugin, "Advent.Calendar").loadAllDays();
 
         // Create items for day
         for (int i = 0; i < days.length; i++) {
-            panel.setItem(i, days[i].getDisplayItem("§7Status: §l" + days[i].getStatus())
-            );
+            String associated = "";
+
+            // Get what kind of gift is associated with that day
+            if(days[i].hasItem()) {
+                associated = "Item";
+            }
+            else if(days[i].hasCommand()) {
+                associated = "Command";
+            }
+            else {
+                associated = "Unknown";
+            }
+
+            // Create display item
+            panel
+                .setItem(i, days[i]
+                .getDisplayItem(
+                        "§7Status: §l" + days[i].getStatus(),
+                        "§7Associated: §l" + associated
+                ));
         }
 
         // Open gui

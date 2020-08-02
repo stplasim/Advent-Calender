@@ -1,16 +1,18 @@
 package net.bitnt.advent;
 
-import net.bitnt.advent.calender.Day;
 import net.bitnt.advent.commands.AdventCommand;
 import net.bitnt.advent.commands.AdventTabCompletion;
 import net.bitnt.advent.handler.AdminOverviewHandler;
+import net.bitnt.advent.handler.FireworkHandler;
 import net.bitnt.advent.handler.PlayerHandler;
 import net.bitnt.advent.util.ConfigLoader;
+import net.bitnt.advent.util.DayDataLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.time.LocalDate;
+import java.time.Month;
 
 public final class Advent extends JavaPlugin {
     @Override
@@ -33,6 +35,7 @@ public final class Advent extends JavaPlugin {
 
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new PlayerHandler(this), this);
+        pluginManager.registerEvents(new FireworkHandler(), this);
         pluginManager.registerEvents(new AdminOverviewHandler(this), this);
     }
 
@@ -41,12 +44,9 @@ public final class Advent extends JavaPlugin {
      */
     private void initConfig() {
         if(this.getConfig().getConfigurationSection("Advent") == null) {
-            int currentYear = LocalDate.now().getYear();
+            new ConfigLoader(this, "Advent.Timing").saveActiveMonth(Month.DECEMBER);
 
-            for (int i = 0; i < 24; i++) {
-                new ConfigLoader(this, "Advent.Calender")
-                        .saveDay(new Day((i + 1), (i * 2), currentYear));
-            }
+            new DayDataLoader(this, "Advent.Calendar").cleanConfig();
 
             this.saveConfig();
         }

@@ -1,7 +1,7 @@
 package net.bitnt.advent.handler;
 
 import net.bitnt.advent.Advent;
-import net.bitnt.advent.calender.Calender;
+import net.bitnt.advent.calender.Calendar;
 import net.bitnt.advent.statics.StaticMessages;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,7 +33,7 @@ public class AdminOverviewHandler implements Listener {
         }
 
         // Handle clicks
-        if(event.getView().getTitle().equals(Calender.CALENDER_TITLE_ADMIN)) {
+        if(event.getView().getTitle().equals(Calendar.CALENDER_TITLE_ADMIN)) {
             try {
                 player.closeInventory();
             }

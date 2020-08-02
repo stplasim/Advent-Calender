@@ -51,6 +51,15 @@ public class AdventCommand implements CommandExecutor {
                 case "help":
                     handleHelpCommand.handleCommand(player);
                     break;
+
+                case "info":
+                    handleInfoCommand.handleCommand(player);
+                    break;
+
+                default:
+                    player.sendMessage(StaticMessages.COMMAND_NOT_FOUND_ERROR);
+                    break;
+
             }
         }
         else {

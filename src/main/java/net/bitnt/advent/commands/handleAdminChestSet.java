@@ -4,7 +4,7 @@ import net.bitnt.advent.Advent;
 import net.bitnt.advent.calender.Day;
 import net.bitnt.advent.calender.DayStatus;
 import net.bitnt.advent.statics.CommandFilter;
-import net.bitnt.advent.util.ConfigLoader;
+import net.bitnt.advent.util.DayDataLoader;
 import net.bitnt.advent.statics.StaticMessages;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -46,6 +46,9 @@ public class handleAdminChestSet {
             // Get chest items
             ItemStack[] items = chest.getBlockInventory().getContents();
 
+            DayDataLoader dataLoader = new DayDataLoader(plugin, "Advent.Calendar");
+            dataLoader.cleanConfig();
+
             // Loop over every slot and save to config (if possible)
             for (int i = 0; i < items.length; i++) {
                 // Get single items and check if the slot is not empty => null
@@ -76,10 +79,10 @@ public class handleAdminChestSet {
                 }
 
                 // Update the state of the day
-                d.setStatus(DayStatus.READY);
+                d.setStatus(DayStatus.UPCOMING);
 
                 // Save to config
-                new ConfigLoader(plugin, "Advent.Calender").updateSingleDay(d);
+                dataLoader.updateSingleDay(d);
             }
 
             player.sendMessage(StaticMessages.CALENDAR_CREATED);

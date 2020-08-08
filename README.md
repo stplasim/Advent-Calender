@@ -1,8 +1,9 @@
-# Minecraft Advent calendar system
+# Spigot Advent calendar system
 
 ![Build release](https://github.com/stplasim/Advent-Calender/workflows/Build%20release/badge.svg)
+![Build Pre-Release](https://github.com/stplasim/Advent-Calender/workflows/Build%20Pre-Release/badge.svg)
 
-An advent calendar plugin for Minecraft Spigot, Bukkit and Paper Server.
+An advent calendar plugin for Spigot, Bukkit and Paper Server.
 With this plugin you can create an advent calendar on your server. 
 You can set an item or command for each day, which can then be picked up by the player.
 
